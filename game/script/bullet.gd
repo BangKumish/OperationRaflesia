@@ -19,8 +19,12 @@ func _on_body_entered(body: Node2D) -> void:
 	if direction == -1:
 		vfxInstance.scale.x = -1
 	
-	var enemy = body as EnemyController
+	var enemy = body as EnemyController 
 	if enemy:
 		enemy.applyDamage(DAMAGE)
+	
+	var zombie = body as ZombieController
+	if zombie:
+		zombie.applyDamage(DAMAGE)
 	
 	queue_free()

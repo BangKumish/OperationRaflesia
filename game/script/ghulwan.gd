@@ -1,20 +1,20 @@
 extends CharacterBody2D
-class_name PlayerController
+class_name GhulwanController
 
 #Const HERE
-const SPEED = 150
+const SPEED = 100
 const JUMP_VELOCITY = -450
 const GRAVITY = 1800
 var doubleJump
 
 #Import AnimationSptite
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-@onready var shooting_point: Node2D = $shooting_point
+@onready var shooting_point: Node2D = $ShootingPoint
 
 var airborneLastFrame = false
 
-const BURST_SIZE = 7
-const SHOOT_DURATION = .125
+const BURST_SIZE = 3
+const SHOOT_DURATION = .275
 const BURST_DELAY = 1.275
 
 var isShooting = false
@@ -26,12 +26,13 @@ var currentState: playerState = playerState.normal:
 		currentState = newValue
 		match currentState: 
 			playerState.hurt:
-				if is_on_floor():
-					animated_sprite_2d.play("hit_stand")
-				else:
-					animated_sprite_2d.play("hit_jump")
+				pass
+				#if is_on_floor():
+					#animated_sprite_2d.play("hit_stand")
+				#else:
+					#animated_sprite_2d.play("hit_jump")
 			playerState.dead:
-				animated_sprite_2d.play("die")
+				animated_sprite_2d.play("dead")
 				set_collision_layer_value(2, false)
 				GameManager.playerIsDead()
 			playerState.uncontrollable:
@@ -53,8 +54,8 @@ signal playerCoinUpdated(newValue)
 
 func _ready() -> void:
 	currentHealth = MAX_HEALTH
-	GameManager.player = self
-	GameManager.playerOriginalPos = position
+	GameManager.ghulwan = self
+	GameManager.ghulwanOriginalPos = position
 
 func _process(_delta: float) -> void:
 	updateAnimation()
@@ -116,29 +117,31 @@ func updateAnimation():
 			shooting_point.position.x = 26
 		
 	if is_on_floor():
-		if abs(velocity.x) >= 0.1:			
+		if abs(velocity.x) >= 0.1:
+			
 			var playingAnimationFrame = animated_sprite_2d.frame
 			var playingAnimationName = animated_sprite_2d.animation
 			
 			if isShooting:
-				animated_sprite_2d.play("shoot_run")
+				#animated_sprite_2d.play("shoot_run")
 				if playingAnimationName == "run":
 					animated_sprite_2d.frame = playingAnimationFrame
 			else:
-				if playingAnimationName == "shoot_run" && animated_sprite_2d.is_playing():
+				if animated_sprite_2d.is_playing(): 
+				#playingAnimationName == "shoot_run" && 
 					pass
 				else:
 					animated_sprite_2d.play("run")
 		else:
 			if isShooting:
-				animated_sprite_2d.play("shoot_stand")
+				animated_sprite_2d.play("shoot")
 			else:
 				animated_sprite_2d.play("idle")
 	else:
 		animated_sprite_2d.play("jump")
 		
-		if isShooting:
-			animated_sprite_2d.play("shoot_jump")
+		#if isShooting:
+			#animated_sprite_2d.play("shoot_jump")
 	
 		
 func playJumpVFX():

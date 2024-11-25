@@ -39,4 +39,5 @@ script = ExtResource("1_px6qf")
 position = Vector2(16, 0)
 sprite_frames = SubResource("SpriteFrames_xdvkd")
 animation = &"start"
+frame = 2
 frame_progress = 1.0

@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name EnemyController
 
-const SPEED = 50
+@export var SPEED = 50
 var direction = -1
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -9,7 +9,9 @@ var direction = -1
 @onready var ray_cast_2d_downward: RayCast2D = $CollisionShape2D/RayCast2D_downward
 @onready var area_2d_container: Node2D = $Area2D_Container
 
-var currentHealth = 100
+@export var currentHealth = 100
+@export var coinPrize = 5
+
 var isDead = false
 var isAttacking = false
 
@@ -61,9 +63,9 @@ func applyDamage(damage: int):
 		isDead = true
 		animated_sprite_2d.play("die")
 		set_collision_layer_value(3, false)
-		await get_tree().create_timer(2).timeout
+		await get_tree().create_timer(.5).timeout
 		queue_free()
-
-
+		GameManager.getCoin(coinPrize)
+		
 func _on_area_2d_player_detector_body_entered(_body: Node2D) -> void:
 	isAttacking = true
