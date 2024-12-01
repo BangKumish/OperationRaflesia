@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccmu746h1x8qk"]
+
+[ext_resource type="Script" path="res://game/script/melee.gd" id="1_8p34o"]
+[ext_resource type="Texture2D" uid="uid://ch1d6o1iacblh" path="res://asset/animations/Soldier/slash.png" id="2_nhvvd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4ycid"]
+radius = 24.0
+
+[node name="melee" type="Area2D"]
+position = Vector2(8, 16)
+collision_layer = 0
+collision_mask = 5
+script = ExtResource("1_8p34o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-8, 8)
+shape = SubResource("CircleShape2D_4ycid")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-8, 8)
+texture = ExtResource("2_nhvvd")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

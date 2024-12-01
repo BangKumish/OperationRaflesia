@@ -1,4 +1,4 @@
-[gd_scene load_steps=123 format=3 uid="uid://cquc2yj8l8ipl"]
+[gd_scene load_steps=144 format=3 uid="uid://cquc2yj8l8ipl"]
 
 [ext_resource type="Texture2D" uid="uid://cou441lm6tvlt" path="res://asset/tilemap/Tilemap_ProjectLittleAdventurerAndie2D.png" id="1_gcagx"]
 [ext_resource type="Texture2D" uid="uid://exerxmct84ov" path="res://asset/animations/Player/Idle.png" id="2_4gv1x"]
@@ -13,6 +13,8 @@
 [ext_resource type="Script" path="res://game/script/deathZone.gd" id="6_yk8iw"]
 [ext_resource type="Texture2D" uid="uid://bfldogd1ti5kw" path="res://asset/animations/Player/Shoot_Run.png" id="7_0sy1j"]
 [ext_resource type="Texture2D" uid="uid://8ivf1gij3l20" path="res://asset/background/05_ProjectLittleAdventurerAndie2D.png" id="7_0yvpx"]
+[ext_resource type="Texture2D" uid="uid://20bnji6qg0js" path="res://asset/animations/Soldier/Recharge.png" id="8_5lpdw"]
+[ext_resource type="Texture2D" uid="uid://cje5d1c08y0up" path="res://asset/animations/Soldier/Attack.png" id="8_mreeg"]
 [ext_resource type="Texture2D" uid="uid://b15c6quc821mo" path="res://asset/background/04_ProjectLittleAdventurerAndie2D.png" id="8_pcoy6"]
 [ext_resource type="Texture2D" uid="uid://ce18i7re87lar" path="res://asset/background/03_ProjectLittleAdventurerAndie2D.png" id="9_f452f"]
 [ext_resource type="Texture2D" uid="uid://l6g1agy206ku" path="res://asset/background/02_ProjectLittleAdventurerAndie2D.png" id="10_e04yu"]
@@ -29,6 +31,9 @@
 [ext_resource type="PackedScene" uid="uid://bot1x51t8clp1" path="res://game/scene/zombie.tscn" id="27_pn28m"]
 [ext_resource type="PackedScene" uid="uid://crg8cukv4mldq" path="res://game/scene/enemy.tscn" id="28_r4dxd"]
 [ext_resource type="PackedScene" uid="uid://tu5f2hcqdrms" path="res://game/scene/end_door.tscn" id="29_qu5td"]
+[ext_resource type="AudioStream" uid="uid://b8hta3v1apn3k" path="res://asset/soundtrack/amb_01.ogg" id="30_4g263"]
+[ext_resource type="PackedScene" uid="uid://ceaiu16rt4ie3" path="res://game/scene/coin.tscn" id="33_67h3r"]
+[ext_resource type="PackedScene" uid="uid://cr4e16frl2kf1" path="res://game/scene/ammo.tscn" id="34_2x2ps"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_p2mni"]
 friction = 0.0
@@ -677,6 +682,70 @@ region = Rect2(512, 0, 64, 64)
 atlas = ExtResource("4_v0x0t")
 region = Rect2(576, 0, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_mpclo"]
+atlas = ExtResource("8_mreeg")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gdwce"]
+atlas = ExtResource("8_mreeg")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdxi7"]
+atlas = ExtResource("8_mreeg")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_we3ob"]
+atlas = ExtResource("8_5lpdw")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7sjs"]
+atlas = ExtResource("8_5lpdw")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6b4t"]
+atlas = ExtResource("8_5lpdw")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ytsig"]
+atlas = ExtResource("8_5lpdw")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldu32"]
+atlas = ExtResource("8_5lpdw")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjfw4"]
+atlas = ExtResource("8_5lpdw")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jusdv"]
+atlas = ExtResource("8_5lpdw")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xr6ic"]
+atlas = ExtResource("8_5lpdw")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gow6"]
+atlas = ExtResource("8_5lpdw")
+region = Rect2(1024, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iieoa"]
+atlas = ExtResource("8_5lpdw")
+region = Rect2(1152, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8sev0"]
+atlas = ExtResource("8_5lpdw")
+region = Rect2(1280, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_otcm1"]
+atlas = ExtResource("8_5lpdw")
+region = Rect2(1408, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eeip0"]
+atlas = ExtResource("8_5lpdw")
+region = Rect2(1536, 0, 128, 128)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_bglj6"]
 atlas = ExtResource("5_gpc2a")
 region = Rect2(0, 0, 64, 64)
@@ -919,6 +988,67 @@ animations = [{
 "loop": true,
 "name": &"jump",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mpclo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gdwce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xdxi7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mpclo")
+}],
+"loop": false,
+"name": &"melee_attack",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_we3ob")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7sjs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6b4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ytsig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldu32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pjfw4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jusdv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xr6ic")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gow6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iieoa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8sev0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_otcm1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eeip0")
+}],
+"loop": false,
+"name": &"reload",
+"speed": 9.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1199,7 +1329,9 @@ shape = SubResource("CapsuleShape2D_xuk05")
 z_index = 100
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_i5aou")
-animation = &"shoot_run"
+animation = &"melee_attack"
+frame = 3
+frame_progress = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="player"]
 offset = Vector2(0, -80)
@@ -1213,7 +1345,7 @@ position = Vector2(26, -32)
 [node name="BackgroundLayer" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="BackgroundLayer"]
-motion_scale = Vector2(0, 0)
+motion_scale = Vector2(0, 1)
 
 [node name="05ProjectLittleAdventurerAndie2d" type="Sprite2D" parent="BackgroundLayer/ParallaxLayer"]
 scale = Vector2(1.3, 1.2)
@@ -1338,7 +1470,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_2uyac")
 value = 100.0
 show_percentage = false
 
-[node name="CoinLabel" type="Label" parent="CanvasLayer/GameScreen"]
+[node name="BulletLabel" type="Label" parent="CanvasLayer/GameScreen"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -1347,6 +1479,20 @@ offset_left = -86.0
 offset_top = 20.0
 offset_right = -40.0
 offset_bottom = 130.0
+grow_horizontal = 0
+text = "0
+"
+label_settings = SubResource("LabelSettings_dst1x")
+
+[node name="AmmoLabel" type="Label" parent="CanvasLayer/GameScreen"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -86.0
+offset_top = 90.0
+offset_right = -40.0
+offset_bottom = 200.0
 grow_horizontal = 0
 text = "0
 "
@@ -1492,6 +1638,16 @@ position = Vector2(2400, -400)
 
 [node name="EndDoor" parent="." instance=ExtResource("29_qu5td")]
 position = Vector2(2544, -320)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("30_4g263")
+autoplay = true
+
+[node name="coin" parent="." instance=ExtResource("33_67h3r")]
+position = Vector2(104, -48)
+
+[node name="ammo" parent="." instance=ExtResource("34_2x2ps")]
+position = Vector2(-112, -16)
 
 [connection signal="body_entered" from="Area2D_DeathZone" to="Area2D_DeathZone" method="_on_body_entered"]
 [connection signal="pressed" from="CanvasLayer/GameOverScreen/RestartButton" to="CanvasLayer" method="_on_restart_button_pressed"]

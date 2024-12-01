@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cephe6m25e6sl" path="res://asset/animations/Enemy/Walk.png" id="2_2wnaq"]
 [ext_resource type="Texture2D" uid="uid://vjfvhca4l6lo" path="res://asset/animations/Enemy/Die.png" id="2_hpdt2"]
 [ext_resource type="Texture2D" uid="uid://b3s0p562bj87f" path="res://asset/animations/Enemy/Attack.png" id="2_sbi5c"]
-[ext_resource type="Script" path="res://game/scene/enemyDamageArea.gd" id="5_lg01m"]
+[ext_resource type="Script" path="res://game/script/enemyDamageArea.gd" id="5_lg01m"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gb72s"]
 radius = 6.0

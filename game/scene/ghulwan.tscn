@@ -1,9 +1,10 @@
-[gd_scene load_steps=47 format=3 uid="uid://ca5g8fb62nd2o"]
+[gd_scene load_steps=54 format=3 uid="uid://ca5g8fb62nd2o"]
 
 [ext_resource type="Script" path="res://game/script/ghulwan.gd" id="1_04amf"]
 [ext_resource type="Texture2D" uid="uid://kvgmbf0itj82" path="res://asset/animations/Soldier/Dead.png" id="1_y5y3o"]
 [ext_resource type="Texture2D" uid="uid://dac5g21rlrhbl" path="res://asset/animations/Soldier/Idle.png" id="2_o4nlp"]
 [ext_resource type="Texture2D" uid="uid://20bnji6qg0js" path="res://asset/animations/Soldier/Recharge.png" id="3_0h52x"]
+[ext_resource type="Texture2D" uid="uid://cdju4msn7i1th" path="res://asset/animations/Soldier/jump.png" id="4_q64kn"]
 [ext_resource type="Texture2D" uid="uid://cn4fhjgonprym" path="res://asset/animations/Soldier/Run.png" id="5_cjhb2"]
 [ext_resource type="Texture2D" uid="uid://tvbcuxc1k8pa" path="res://asset/animations/Soldier/Shot_1.png" id="5_eptie"]
 
@@ -54,6 +55,30 @@ region = Rect2(640, 0, 128, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_pmwie"]
 atlas = ExtResource("2_o4nlp")
 region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8rmfv"]
+atlas = ExtResource("4_q64kn")
+region = Rect2(600, 0, 120, 139)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qg5ho"]
+atlas = ExtResource("4_q64kn")
+region = Rect2(480, 0, 120, 139)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1f674"]
+atlas = ExtResource("4_q64kn")
+region = Rect2(360, 0, 120, 139)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygaqk"]
+atlas = ExtResource("4_q64kn")
+region = Rect2(240, 0, 120, 139)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrhuq"]
+atlas = ExtResource("4_q64kn")
+region = Rect2(120, 0, 120, 139)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_exqt1"]
+atlas = ExtResource("4_q64kn")
+region = Rect2(0, 0, 120, 139)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8mlpf"]
 atlas = ExtResource("2_o4nlp")
@@ -210,25 +235,22 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rqavf")
+"texture": SubResource("AtlasTexture_8rmfv")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qjgtq")
+"texture": SubResource("AtlasTexture_qg5ho")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gmv1s")
+"texture": SubResource("AtlasTexture_1f674")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wo0y5")
+"texture": SubResource("AtlasTexture_ygaqk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_622c2")
+"texture": SubResource("AtlasTexture_hrhuq")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yasqe")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pmwie")
+"texture": SubResource("AtlasTexture_exqt1")
 }],
 "loop": false,
 "name": &"jump",
@@ -342,7 +364,7 @@ shape = SubResource("CapsuleShape2D_j4xcg")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(3, -64)
 sprite_frames = SubResource("SpriteFrames_hifjk")
-animation = &"shoot"
+animation = &"reload"
 autoplay = "idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]

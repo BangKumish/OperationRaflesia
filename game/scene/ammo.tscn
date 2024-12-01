@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cr4e16frl2kf1"]
+
+[ext_resource type="Script" path="res://game/script/ammo.gd" id="1_edncj"]
+[ext_resource type="Texture2D" uid="uid://bl5ncys5prta4" path="res://asset/animations/Other/ammo.png" id="2_6hf5q"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h1p1x"]
+
+[node name="ammo" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_edncj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_h1p1x")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_6hf5q")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

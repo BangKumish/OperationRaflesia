@@ -17,7 +17,17 @@ const BURST_SIZE = 7
 const SHOOT_DURATION = .125
 const BURST_DELAY = 1.275
 
+## EXPERIMENTAL START HERE
+const MAG_SIZE = 7
+#var ammo_in_mag = MAG_SIZE
+## EXPERIMENTAL END HERE
+
+const RELOAD_DURATION = 1.5
+
+#var AMMO = 7
+
 var isShooting = false
+var isReloading = false
 var burstCount = 0
 
 enum playerState {normal, hurt, dead, uncontrollable}
@@ -47,9 +57,21 @@ var currentCoin = 0:
 	set(newValue):
 		currentCoin = newValue
 		emit_signal("playerCoinUpdated", currentCoin)
+		
+var ammo_in_mag = 7:
+	set(newValue):
+		ammo_in_mag = newValue
+		emit_signal("playerBulletUpdated", ammo_in_mag)
+		
+var AMMO = 7:
+	set(newValue):
+		AMMO = newValue
+		emit_signal("playerAmmoUpdated", AMMO)
 
 signal playerHealthUpdated(newValue, maxValue)
 signal playerCoinUpdated(newValue)
+signal playerBulletUpdated(newValue)
+signal playerAmmoUpdated(newValue)
 
 func _ready() -> void:
 	currentHealth = MAX_HEALTH
@@ -92,7 +114,16 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 0
 		
 	if Input.is_action_just_pressed("shoot"):
-		tryShoot()
+		if ammo_in_mag <= 0:
+			if AMMO <= 0:
+				melee_attack()
+			else:
+				reload()
+		else:
+			tryShoot()
+		
+	if Input.is_action_just_pressed("reload"):
+		reload()
 	
 	if Input.is_action_just_pressed("down") and is_on_floor():
 		position.y += 3
@@ -116,7 +147,7 @@ func updateAnimation():
 			shooting_point.position.x = 26
 		
 	if is_on_floor():
-		if abs(velocity.x) >= 0.1:			
+		if abs(velocity.x) >= 0.1:
 			var playingAnimationFrame = animated_sprite_2d.frame
 			var playingAnimationName = animated_sprite_2d.animation
 			
@@ -124,6 +155,7 @@ func updateAnimation():
 				animated_sprite_2d.play("shoot_run")
 				if playingAnimationName == "run":
 					animated_sprite_2d.frame = playingAnimationFrame
+			
 			else:
 				if playingAnimationName == "shoot_run" && animated_sprite_2d.is_playing():
 					pass
@@ -131,7 +163,14 @@ func updateAnimation():
 					animated_sprite_2d.play("run")
 		else:
 			if isShooting:
-				animated_sprite_2d.play("shoot_stand")
+				if ammo_in_mag <= 0 and AMMO <= 0:
+					animated_sprite_2d.play("melee_attack")
+				else:
+					animated_sprite_2d.play("shoot_stand")
+		
+			elif isReloading:
+				animated_sprite_2d.play("reload")
+	
 			else:
 				animated_sprite_2d.play("idle")
 	else:
@@ -139,13 +178,11 @@ func updateAnimation():
 		
 		if isShooting:
 			animated_sprite_2d.play("shoot_jump")
-	
 		
 func playJumpVFX():
 	var vfxToSpawn = preload("res://game/scene/vfx_jump_up.tscn")
 	GameManager.spawnVFX(vfxToSpawn, global_position)
-	
-	
+		
 func playLandVFX():
 	var vfxToSpawn = preload("res://game/scene/vfx_land.tscn")
 	GameManager.spawnVFX(vfxToSpawn, global_position)
@@ -160,26 +197,68 @@ func shoot():
 		bulletInstance.direction = 1
 		
 func tryShoot():
-	if isShooting:
+	
+	## EXPERIMENTAL START HERE
+	
+	if isShooting or isReloading:
 		return
+		
+	if ammo_in_mag <= 0:
+		if AMMO > 0:
+			reload()
+		else:
+			melee_attack()
+		return
+	
+	if ammo_in_mag > 0:
+		isShooting = true
+		shoot()
+		playFireVfx()
+	
+		ammo_in_mag -= 1
+		print("Ammo in Mag: ", ammo_in_mag)
+	
+		await get_tree().create_timer(SHOOT_DURATION).timeout
+		isShooting = false
+	
+	## EXPERIMENTAL END HERE
 
+## EXPERIMENTAL START HERE
+
+func reload():
+	if isReloading or ammo_in_mag == MAG_SIZE:
+		return
+		
+	isReloading = true
+	await get_tree().create_timer(RELOAD_DURATION).timeout
+	
+	var needed_ammo = MAG_SIZE - ammo_in_mag
+	var ammo_to_reload = min(needed_ammo, AMMO)
+	ammo_in_mag += ammo_to_reload
+	AMMO -= ammo_in_mag
+	
+	print("Reloaded. Ammo in Mag: ", ammo_in_mag, "Remaining ammo: ", AMMO)
+	isReloading = false
+	
+func melee_attack():
+	if isShooting or isReloading:
+		return
+		
 	isShooting = true
-	shoot()
-	playFireVfx()
+	animated_sprite_2d.play("melee_attack")
 	
-	burstCount += 1
-	if burstCount >= BURST_SIZE:
-		await get_tree().create_timer(BURST_DELAY).timeout
-		burstCount = 0
+	var meleeToSpawn = preload("res://game/scene/melee.tscn")
+	var meleeInstance = GameManager.spawnVFX(meleeToSpawn, shooting_point.global_position)
 	
-	await get_tree().create_timer(SHOOT_DURATION).timeout
+	if animated_sprite_2d.flip_h:
+		meleeInstance.direction = -1
+	else:
+		meleeInstance.direction = 1
+	#
+	await get_tree().create_timer(0.75).timeout
 	isShooting = false
-	
-	#isShooting = true
-	#shoot()
-	#playFireVfx()
-	#await get_tree().create_timer(SHOOT_DURATION).timeout
-	#isShooting = false
+		
+## EXPERIMENTAL END HERE
 
 func playFireVfx():
 	var vfxToSpawn = preload("res://game/scene/vfx_player_fire.tscn")
@@ -210,6 +289,9 @@ func collectedCoin(value: int):
 		currentHealth += value * 3
 		if currentHealth > MAX_HEALTH:
 			currentHealth = MAX_HEALTH
+			
+func collectedAmmo(value: int):
+	AMMO += value
 
 func switchToUncontrollable():
 	currentState = playerState.uncontrollable
